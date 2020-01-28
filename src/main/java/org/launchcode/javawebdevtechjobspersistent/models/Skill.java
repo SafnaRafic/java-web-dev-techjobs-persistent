@@ -2,6 +2,7 @@ package org.launchcode.javawebdevtechjobspersistent.models;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -13,10 +14,9 @@ import java.util.List;
 public class Skill extends AbstractEntity {
     @Size(max = 250, message = "Description is too long!")
     private String description;
-    @OneToMany
-    @JoinColumn
+    @ManyToMany(mappedBy = "skills")
+//    @JoinColumn
     private final List<Job> jobs=new ArrayList<>();
-
 
     //getter and setter
 
@@ -29,11 +29,10 @@ public class Skill extends AbstractEntity {
     }
 
     public List<Job> getJobs() {
+
         return jobs;
     }
-//     public void addJob(){
-//        jobs.add();
-//     }
+
 
     //No arg constructor
     public Skill() {

@@ -1,23 +1,30 @@
 package org.launchcode.javawebdevtechjobspersistent.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Job extends AbstractEntity{
 
     @ManyToOne
     private Employer employer;
-   @ManyToOne
-    private Skill skillz;
+   @ManyToMany
+    private List<Skill> skills;
 
     public Job() {
     }
 
-    public Job(Employer anEmployer, Skill someSkills) {
+    public Job(Employer employer, List<Skill> skills) {
         super();
-        this.employer = anEmployer;
-        this.skillz = someSkills;
+        this.employer = employer;
+        this.skills = skills;
     }
+
+//    public Job(Employer anEmployer, someSkills) {
+////        super();
+////        this.employer = anEmployer;
+////        this.skills = someSkills;
+////    }
 
     // Getters and setters.
 
@@ -30,11 +37,18 @@ public class Job extends AbstractEntity{
         this.employer = employer;
     }
 
-    public Skill getSkills() {
-        return skillz;
+    public List<Skill> getSkills() {
+        return skills;
     }
 
-    public void setSkills(Skill skills) {
-        this.skillz = skills;
+    public void setSkills(List<Skill> skills) {
+        this.skills = skills;
     }
+    //    public Skill getSkills() {
+//        return skills;
+//    }
+//
+//    public void setSkills(Skill skills) {
+//        this.skills = skills;
+//    }
 }
