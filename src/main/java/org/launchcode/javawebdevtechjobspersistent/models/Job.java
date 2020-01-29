@@ -8,8 +8,10 @@ public class Job extends AbstractEntity{
 
     @ManyToOne
     private Employer employer;
+
    @ManyToMany
-    private List<Skill> skills;
+   private List<Skill> skills;
+
 
     public Job() {
     }
@@ -20,14 +22,7 @@ public class Job extends AbstractEntity{
         this.skills = skills;
     }
 
-//    public Job(Employer anEmployer, someSkills) {
-////        super();
-////        this.employer = anEmployer;
-////        this.skills = someSkills;
-////    }
-
     // Getters and setters.
-
 
     public Employer getEmployer() {
         return employer;
@@ -44,11 +39,6 @@ public class Job extends AbstractEntity{
     public void setSkills(List<Skill> skills) {
         this.skills = skills;
     }
-    //    public Skill getSkills() {
-//        return skills;
-//    }
-//
-//    public void setSkills(Skill skills) {
-//        this.skills = skills;
-//    }
+
+
 }

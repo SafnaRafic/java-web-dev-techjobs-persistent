@@ -13,7 +13,7 @@ public class Employer extends AbstractEntity {
 
     @NotBlank(message = "Location is required")
     private String location;
-//    (mappedBy = "employer")
+
     @OneToMany
     @JoinColumn
     private final List<Job> jobs=new ArrayList<>();
