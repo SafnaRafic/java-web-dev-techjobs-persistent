@@ -6,7 +6,7 @@ name VARCHAR(255),
 skills VARCHAR(255));
 
 ## Part 2: Test it with SQL
-SELECT name F Employer WHERE location = "Saint Louis"
+SELECT name FROM Employer WHERE location = "Saint Louis"
 
 ## Part 3: Test it with SQL
 DROP TABLE job;
