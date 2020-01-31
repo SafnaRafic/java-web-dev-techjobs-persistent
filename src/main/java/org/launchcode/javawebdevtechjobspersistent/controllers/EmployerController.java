@@ -55,11 +55,16 @@ public class EmployerController {
             return "employers/allEmployers";
         }
     }
-    @GetMapping("delete")
-    public String displayDeleteEmployerForm(Model model) {
-        model.addAttribute("title", "Delete Employer");
-        model.addAttribute("employers", employerRepository.findAll());
-        return "employers/delete";
+    @GetMapping("delete/{employerId}")
+    public String displayDeleteEmployerForm(Model model,@PathVariable int employerId) {
+       Optional employerToDelete = employerRepository.findById(employerId);
+         if (employerToDelete.isPresent()) {
+                Employer employer = (Employer) employerToDelete.get();
+            model.addAttribute("employer", employer);
+            return "employers/delete";
+        } else {
+            return "redirect:";
+        }
     }
 
     @PostMapping("delete")
@@ -72,7 +77,7 @@ public class EmployerController {
             }
         }
 
-        return "redirect:/";
+        return "redirect:../";
     }
 
     @GetMapping("update/{employerId}")
@@ -97,7 +102,7 @@ public class EmployerController {
             employer.setName(name);
             employer.setLocation(location);
             employerRepository.save(employer);
-        return "redirect:";
+        return "redirect:../";
         }
 
         return "redirect:../";
