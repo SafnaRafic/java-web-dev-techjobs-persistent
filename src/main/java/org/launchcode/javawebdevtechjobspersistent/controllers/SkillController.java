@@ -18,6 +18,13 @@ public class SkillController {
     @Autowired
     private SkillRepository skillRepository;
 
+    @GetMapping("allSkills")
+    public String displayAllSkill(Model model) {
+        model.addAttribute("title", "All Skills");
+        model.addAttribute("skills", skillRepository.findAll());
+        return "skills/allSkills";
+    }
+
     @GetMapping("add")
     public String displayAddSkillForm(Model model){
         model.addAttribute(new Skill());
@@ -43,6 +50,58 @@ public class SkillController {
         } else {
             return "redirect:../";
         }
+    }
+
+    @GetMapping("delete/{skillId}")
+    public String displayDeleteSkillForm(Model model,@PathVariable int skillId) {
+        Optional skillToDelete = skillRepository.findById(skillId);
+        if (skillToDelete.isPresent()) {
+            Skill skill = (Skill) skillToDelete.get();
+            model.addAttribute("skill", skill);
+            return "skills/delete";
+        } else {
+            return "redirect:";
+        }
+    }
+
+    @PostMapping("delete")
+    public String processDeleteSkillForm(@RequestParam(required = false) int[] skillId) {
+
+        if (skillId != null) {
+            for (int id : skillId) {
+                skillRepository.deleteById(id);
+            }
+        }
+
+        return "redirect:../";
+    }
+
+    @GetMapping("update/{skillId}")
+    public String displayUpdateSkillForm(Model model,@PathVariable int skillId) {
+        Optional skillToUpdate = skillRepository.findById(skillId);
+        if (skillToUpdate.isPresent()) {
+            Skill skill = (Skill) skillToUpdate.get();
+            model.addAttribute("skill", skill);
+            return "skills/update";
+        } else {
+            return "redirect:";
+        }
+
+    }
+
+    @PostMapping("update")
+    public String processUpdateSkillForm(int skillId, String name, String description) {
+
+        Optional skillToUpdate = skillRepository.findById(skillId);
+        if (skillToUpdate.isPresent()) {
+            Skill skill = (Skill) skillToUpdate.get();
+            skill.setName(name);
+            skill.setDescription(description);
+            skillRepository.save(skill);
+            return "redirect:../";
+        }
+
+        return "redirect:../";
     }
 }
 
