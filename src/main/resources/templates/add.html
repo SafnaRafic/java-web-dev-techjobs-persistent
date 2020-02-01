@@ -32,9 +32,18 @@
         </th:block>
 <!--        <a th:href="@{'/skills/add'}">Add Skills</a>-->
     </div>
+    <div class="form-group">
+        <label th:for="location">Location</label>
+        <select name="locationId">
+            <option th:each="location : ${locations}"
+                    th:text="${location.name}"
+                    th:value="${location.id}"></option>
+        </select>
+    </div>
 
-    <input type="submit" value="Add Job" />
-</form>
+            <input type="submit" value="Add Job" />
 
-</body>
-</html>
+        </form>
+
+        </body>
+        </html>

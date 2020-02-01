@@ -12,13 +12,15 @@
     <tr>
         <th>Name</th>
         <th>Description</th>
+        <th>Job With Skill</th>
         <th>Delete</th>
         <th>Update</th>
     </tr>
     </thead>
     <tr th:each="skill : ${skills}">
-        <td><a th:href="@{/list/jobs(column=skill,value=${skill.name})}" th:text="${skill.name}"></a></td>
+        <td th:text="${skill.name}"></a></td>
         <td th:text="${skill.description}"></td>
+        <td><a th:href="@{/list/jobs(column=skill,value=${skill.name})}">View</a></td>
         <td><a th:href="@{/skills/delete/{id}(id=${skill.id})}"><button class="btn btn-primary">Delete</button></a></td>
         <td><a th:href="@{/skills/update/{id}(id=${skill.id})}"><button class="btn btn-primary">Update</button></a></td>
 

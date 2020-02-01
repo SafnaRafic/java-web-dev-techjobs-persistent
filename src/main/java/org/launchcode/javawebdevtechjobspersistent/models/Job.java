@@ -9,6 +9,9 @@ public class Job extends AbstractEntity{
     @ManyToOne
     private Employer employer;
 
+    @ManyToOne
+    private Location location;
+
    @ManyToMany
    private List<Skill> skills;
 
@@ -40,5 +43,11 @@ public class Job extends AbstractEntity{
         this.skills = skills;
     }
 
+    public Location getLocation() {
+        return location;
+    }
 
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 }

@@ -16,6 +16,7 @@
         <th>All</th>
         <th>Employer</th>
         <th>Skill</th>
+        <th>Location</th>
     </tr>
 
     <tr>
@@ -32,6 +33,11 @@
         <td>
             <li th:each="skill : ${skills}">
                 <a th:href="@{/list/jobs(column=skill,value=${skill.name})}" th:text="${skill.name}">Skills</a>
+            </li>
+        </td>
+        <td>
+            <li th:each="location : ${locations}">
+                <a th:href="@{/list/jobs(column=location,value=${location.name})}" th:text="${location.name}">Location</a>
             </li>
         </td>
     </tr>

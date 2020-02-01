@@ -2,9 +2,11 @@ package org.launchcode.javawebdevtechjobspersistent.controllers;
 
 import org.launchcode.javawebdevtechjobspersistent.models.Employer;
 import org.launchcode.javawebdevtechjobspersistent.models.Job;
+import org.launchcode.javawebdevtechjobspersistent.models.Location;
 import org.launchcode.javawebdevtechjobspersistent.models.Skill;
 import org.launchcode.javawebdevtechjobspersistent.models.data.EmployerRepository;
 import org.launchcode.javawebdevtechjobspersistent.models.data.JobRepository;
+import org.launchcode.javawebdevtechjobspersistent.models.data.LocationRepository;
 import org.launchcode.javawebdevtechjobspersistent.models.data.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +33,9 @@ public class HomeController {
     @Autowired
     private JobRepository jobRepository;
 
+    @Autowired
+    private LocationRepository locationRepository;
+
     @RequestMapping("")
     public String index(Model model) {
 
@@ -50,13 +55,15 @@ public class HomeController {
         model.addAttribute("title", "Add Job");
         model.addAttribute("employers",employerRepository.findAll());
         model.addAttribute("skills",skillRepository.findAll());
+        model.addAttribute("locations",locationRepository.findAll());
         model.addAttribute(new Job());
         return "add";
     }
 
     @PostMapping("add")
     public String processAddJobForm(@ModelAttribute @Valid Job newJob,
-                                    Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills) {
+                                    Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills,
+                                    @RequestParam int locationId) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Job");
@@ -71,8 +78,19 @@ public class HomeController {
         Employer employer=(Employer)result.get();
         newJob.setEmployer(employer);
         model.addAttribute("employer",employer.getName());
+
         List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
         newJob.setSkills(skillObjs);
+
+        Optional<Location> optLocation = locationRepository.findById(locationId);
+        if(optLocation.isEmpty()){
+            model.addAttribute("title", "Add Job");
+            return "add";
+        }
+        Location location=(Location) optLocation.get();
+        newJob.setLocation(location);
+        model.addAttribute("location",location.getName());
+
         jobRepository.save(newJob);
         return "redirect:";
     }

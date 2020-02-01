@@ -8,18 +8,20 @@
 
 <p th:unless="${employers} and ${employers.size()}">no jobs!</p>
 <h1>Employers</h1>
-<table class=table table-striped>
+<table class="table">
     <thead>
     <tr>
         <th>Name</th>
         <th>Location</th>
+        <th>Jobs With Employer</th>
         <th>Delete</th>
         <th>Update</th>
     </tr>
     </thead>
     <tr th:each="employer : ${employers}">
-        <td><a th:href="@{/list/jobs(column=employer,value=${employer.name})}" th:text="${employer.name}"></a></td>
+        <td th:text="${employer.name}"></td>
         <td th:text="${employer.location}"></td>
+        <td><a th:href="@{/list/jobs(column=employer,value=${employer.name})}" >View</a></td>
         <td><a th:href="@{/employers/delete/{id}(id=${employer.id})}"><button class="btn btn-primary">Delete</button></a></td>
         <td><a th:href="@{/employers/update/{id}(id=${employer.id})}"><button class="btn btn-primary">Update</button></a></td>
 

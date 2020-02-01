@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+</head>
+<body class="container body-content">
+<h1 th:text="${'Location: ' + location.name}"></h1>
+<nav th:replace="fragments :: page-header"></nav>
+<div class="job-listing">
+<p th:text ="${'Location:  '+ location.name}"></p>
+</div>
+</body>
+</html>

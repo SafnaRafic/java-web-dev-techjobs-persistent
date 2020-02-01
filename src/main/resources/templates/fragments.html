@@ -4,8 +4,9 @@
 <head th:fragment="head">
 
     <!-- Bootstrap stylesheets and script -->
-    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
-    <link th:href="@{/css/techjobs.css}" rel="stylesheet" />
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
+    <link th:href="@{/css/techjobs.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
 
     <title th:text="'TechJobs' + ${title == null ? '' : ' :: ' + title}">TechJobs</title>
@@ -22,15 +23,18 @@
             <ul class="nav navbar-nav">
                 <li><a th:href="@{/list}">List</a></li>
                 <li><a th:href="@{/search}">Search</a></li>
-
                 <li><a th:href="@{/jobs}">Jobs</a></li>
                 <li><a th:href="@{/employers/allEmployers}">Employers</a></li>
                 <li><a th:href="@{/skills/allSkills}">Skills</a></li>
+                <li><a th:href="@{/locations/allLocations}">Location</a></li>
             </ul>
 
         </div>
+
     </div>
+
 </div>
+
 
 </body>
 </html>

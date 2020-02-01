@@ -20,6 +20,9 @@
             </li>
         </ul>
     </p>
+    <p>
+        Location: <a th:href="@{'/locations/view/' + ${job.location.id}}" th:text="${job.location.name}"></a>
+    </p>
 </div>
 
 

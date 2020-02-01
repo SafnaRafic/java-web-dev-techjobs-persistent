@@ -12,14 +12,14 @@
         <thead>
         <tr>
             <th>Name</th>
-
+            <th>Job Details</th>
             <th>Delete</th>
             <th>Update</th>
         </tr>
         </thead>
         <tr th:each="job : ${jobs}">
-
-            <td><a th:href="@{'/view/' + ${job.id}}" th:text="${job.name}"></a></td>
+            <td th:text="${job.name}"></td>
+            <td><a th:href="@{'/view/' + ${job.id}}">View</a></td>
             <td><a th:href="@{/delete/{id}(id=${job.id})}"><button class="btn btn-primary">Delete</button></a></td>
             <td><a th:href="@{/update/{id}(id=${job.id})}"><button class="btn btn-primary">Update</button></a></td>
         </tr>
