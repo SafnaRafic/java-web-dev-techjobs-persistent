@@ -38,6 +38,12 @@ public class HomeController {
         model.addAttribute("jobs",jobRepository.findAll());
         return "index";
     }
+    @GetMapping("jobs")
+    public String displayAllJobs(Model model) {
+        model.addAttribute("title", "All Jobs");
+        model.addAttribute("jobs", jobRepository.findAll());
+        return "jobs";
+    }
 
     @GetMapping("add")
     public String displayAddJobForm(Model model) {
@@ -81,8 +87,69 @@ public class HomeController {
         } else {
             return "redirect:../";
         }
+    }
 
+    @GetMapping("delete/{jobId}")
+    public String displayDeleteJobForm(Model model,@PathVariable int jobId) {
+        Optional jobToDelete = jobRepository.findById(jobId);
+        if (jobToDelete.isPresent()) {
+            Job job = (Job) jobToDelete.get();
+            model.addAttribute("job", job);
+            return "delete";
+        } else {
+            return "redirect:";
+        }
+    }
 
+    @PostMapping("delete")
+    public String processDeleteJobForm(@RequestParam(required = false) int[] jobId) {
+
+        if (jobId != null) {
+            for (int id : jobId) {
+
+                jobRepository.deleteById(id);
+            }
+        }
+
+        return "redirect:";
+    }
+
+    @GetMapping("update/{jobId}")
+    public String displayUpdateJobForm(Model model,@PathVariable int jobId) {
+        model.addAttribute("title", "Update Job");
+        model.addAttribute("employers",employerRepository.findAll());
+        model.addAttribute("skills",skillRepository.findAll());
+        //model.addAttribute(new Job());
+        Optional jobToUpdate = jobRepository.findById(jobId);
+        if (jobToUpdate.isPresent()) {
+            Job job = (Job) jobToUpdate.get();
+            model.addAttribute("job", job);
+            return "update";
+        } else {
+            return "redirect:";
+        }
+
+    }
+
+    @PostMapping("update")
+    public String processUpdateJobForm(int jobId, String name,@RequestParam int employerId, @RequestParam List<Integer> skills) {
+        Optional<Employer> result = employerRepository.findById(employerId);
+        if (result.isEmpty()) {
+            return "update";
+        }
+        Optional jobToUpdate = jobRepository.findById(jobId);
+        if (jobToUpdate.isPresent()) {
+            Job job = (Job) jobToUpdate.get();
+            Employer employer = (Employer) result.get();
+            job.setEmployer(employer);
+//        model.addAttribute("employer",employer.getName());
+            List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
+            job.setSkills(skillObjs);
+            job.setName(name);
+            jobRepository.save(job);
+            return "redirect:";
+        }
+        return "redirect:";
     }
 
 
