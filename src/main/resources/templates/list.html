@@ -40,6 +40,11 @@
                 <a th:href="@{/list/jobs(column=location,value=${location.name})}" th:text="${location.name}">Location</a>
             </li>
         </td>
+        <td>
+            <li th:each="position : ${positions}">
+                <a th:href="@{/list/jobs(column=position,value=${position.name})}" th:text="${position.name}">Position</a>
+            </li>
+        </td>
     </tr>
 </table>
 

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace = "fragments :: head">
+</head>
+<body class="container body-content">
+<nav th:replace="fragments :: page-header"></nav>
+
+<h1>All Positions</h1>
+<table class="table table-striped">
+    <thead>
+    <th>Name</th>
+    <th>Job with Position</th>
+    <th>Delete</th>
+    <th>Update</th>
+    </thead>
+    <tr th:each="position : ${positions}">
+        <td th:text="${position.name}"></td>
+        <td><a th:href="@{/list/jobs(column=location,value=${position.name})}" >View</a></td>
+        <td><a th:href="@{/positions/delete/{id}(id=${position.id})}">Delete</a></td>
+        <td><a th:href="@{/positions/update/{id}(id=${position.id})}">Update</a></td>
+    </tr>
+</table>
+<a th:href="@{/positions/add}"><button class="btn btn-primary">Add Position</button></a>
+</body>
+</html>

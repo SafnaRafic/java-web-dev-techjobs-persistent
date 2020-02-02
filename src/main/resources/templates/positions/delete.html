@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace = "fragments :: head">
+</head>
+<body class="container body-content">
+<nav th:replace="fragments :: page-header"></nav>
+<form method="post" th:action="@{/positions/delete}">
+    <div class="form-group">
+        <label th:for="name">Position</label>
+        <input class="form-control" th:field="${position.name}"/>
+        <span th:error="${position.name}" class="error"></span>
+    </div>
+    <input type="hidden" th:value="${position.id}" name="positionId"/>
+    <input type="submit" value="Delete"/>
+</form>
+
+
+</body>
+</html>

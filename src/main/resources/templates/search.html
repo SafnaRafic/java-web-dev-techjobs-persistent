@@ -57,6 +57,14 @@
                       </li>
                     </ul>
                 </p>
+                <p>
+                    Location:
+                    <a th:href="@{'/locations/view/' + ${job.location.id}}" th:text="${job.location.name}"></a>
+                </p>
+                <p>
+                    Position:
+                    <a th:href="@{'/positions/view/' + ${job.position.id}}" th:text="${job.position.name}"></a>
+                </p>
 
             </td>
         </tr>

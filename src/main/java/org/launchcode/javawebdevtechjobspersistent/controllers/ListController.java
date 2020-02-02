@@ -1,10 +1,7 @@
 package org.launchcode.javawebdevtechjobspersistent.controllers;
 
 import org.launchcode.javawebdevtechjobspersistent.models.Job;
-import org.launchcode.javawebdevtechjobspersistent.models.data.EmployerRepository;
-import org.launchcode.javawebdevtechjobspersistent.models.data.JobRepository;
-import org.launchcode.javawebdevtechjobspersistent.models.data.LocationRepository;
-import org.launchcode.javawebdevtechjobspersistent.models.data.SkillRepository;
+import org.launchcode.javawebdevtechjobspersistent.models.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +31,9 @@ public class ListController {
     @Autowired
     private LocationRepository locationRepository;
 
+    @Autowired
+    private PositionRepository positionRepository;
+
     static HashMap<String, String> columnChoices = new HashMap<>();
 
     public ListController () {
@@ -41,7 +41,8 @@ public class ListController {
         columnChoices.put("all", "All");
         columnChoices.put("employer", "Employer");
         columnChoices.put("skill", "Skill");
-        columnChoices.put("location","Location");
+        columnChoices.put("location", "Location");
+        columnChoices.put("position", "Position");
 
     }
 
@@ -51,6 +52,7 @@ public class ListController {
         model.addAttribute("skills",skillRepository.findAll());
         model.addAttribute("jobs",jobRepository.findAll());
         model.addAttribute("locations",locationRepository.findAll());
+        model.addAttribute("positions",positionRepository.findAll());
         return "list";
     }
 

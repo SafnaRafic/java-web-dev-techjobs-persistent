@@ -15,6 +15,9 @@ public class Job extends AbstractEntity{
    @ManyToMany
    private List<Skill> skills;
 
+   @OneToOne
+   private Position position;
+
 
     public Job() {
     }
@@ -49,5 +52,13 @@ public class Job extends AbstractEntity{
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }
