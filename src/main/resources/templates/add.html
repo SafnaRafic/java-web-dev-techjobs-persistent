@@ -40,6 +40,14 @@
                     th:value="${location.id}"></option>
         </select>
     </div>
+    <div class="form-group">
+        <label th:for="position">Position</label>
+        <select name="positionId">
+            <option th:each="position : ${positions}"
+                    th:text="${position.name}"
+                    th:value="${position.id}"></option>
+        </select>
+    </div>
 
             <input type="submit" value="Add Job" />
 

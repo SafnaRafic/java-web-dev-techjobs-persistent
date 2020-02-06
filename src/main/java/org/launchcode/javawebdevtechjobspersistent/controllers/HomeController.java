@@ -1,13 +1,7 @@
 package org.launchcode.javawebdevtechjobspersistent.controllers;
 
-import org.launchcode.javawebdevtechjobspersistent.models.Employer;
-import org.launchcode.javawebdevtechjobspersistent.models.Job;
-import org.launchcode.javawebdevtechjobspersistent.models.Location;
-import org.launchcode.javawebdevtechjobspersistent.models.Skill;
-import org.launchcode.javawebdevtechjobspersistent.models.data.EmployerRepository;
-import org.launchcode.javawebdevtechjobspersistent.models.data.JobRepository;
-import org.launchcode.javawebdevtechjobspersistent.models.data.LocationRepository;
-import org.launchcode.javawebdevtechjobspersistent.models.data.SkillRepository;
+import org.launchcode.javawebdevtechjobspersistent.models.*;
+import org.launchcode.javawebdevtechjobspersistent.models.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +30,9 @@ public class HomeController {
     @Autowired
     private LocationRepository locationRepository;
 
+    @Autowired
+    private PositionRepository positionRepository;
+
     @RequestMapping("")
     public String index(Model model) {
 
@@ -56,6 +53,7 @@ public class HomeController {
         model.addAttribute("employers",employerRepository.findAll());
         model.addAttribute("skills",skillRepository.findAll());
         model.addAttribute("locations",locationRepository.findAll());
+        model.addAttribute("positions",positionRepository.findAll());
         model.addAttribute(new Job());
         return "add";
     }
@@ -63,7 +61,7 @@ public class HomeController {
     @PostMapping("add")
     public String processAddJobForm(@ModelAttribute @Valid Job newJob,
                                     Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills,
-                                    @RequestParam int locationId) {
+                                    @RequestParam int locationId,@RequestParam int positionId) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Job");
@@ -84,12 +82,21 @@ public class HomeController {
 
         Optional<Location> optLocation = locationRepository.findById(locationId);
         if(optLocation.isEmpty()){
-            model.addAttribute("title", "Add Job");
+            model.addAttribute("title", "Add Location");
             return "add";
         }
         Location location=(Location) optLocation.get();
         newJob.setLocation(location);
         model.addAttribute("location",location.getName());
+
+        Optional<Position> optPosition = positionRepository.findById(positionId);
+        if(optPosition.isEmpty()){
+            model.addAttribute("title", "Add Position");
+            return "add";
+        }
+        Position position=(Position) optPosition.get();
+        newJob.setPosition(position);
+        model.addAttribute("position",position.getName());
 
         jobRepository.save(newJob);
         return "redirect:";
@@ -103,7 +110,7 @@ public class HomeController {
             model.addAttribute("job", job);
             return "view";
         } else {
-            return "redirect:../";
+            return "redirect:";
         }
     }
 

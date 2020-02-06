@@ -52,7 +52,7 @@ public class EmployerController {
             model.addAttribute("employer", employer);
             return "employers/view";
         } else {
-            return "employers/allEmployers";
+            return "redirect:../employers/allEmployers";
         }
     }
     @GetMapping("delete/{employerId}")
@@ -77,7 +77,7 @@ public class EmployerController {
             }
         }
 
-        return "redirect:../";
+        return "redirect:../employers/allEmployers";
     }
 
     @GetMapping("update/{employerId}")
@@ -102,7 +102,7 @@ public class EmployerController {
             employer.setName(name);
             employer.setLocation(location);
             employerRepository.save(employer);
-        return "redirect:../";
+        return "redirect:../employers/allEmployers";
         }
 
         return "redirect:../";

@@ -1,5 +1,6 @@
 package org.launchcode.javawebdevtechjobspersistent.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -14,7 +15,7 @@ public class Skill extends AbstractEntity {
     @Size(max = 250, message = "Description is too long!")
     private String description;
 
-    @ManyToMany(mappedBy = "skills")
+    @ManyToMany(mappedBy = "skills", cascade = CascadeType.ALL)
     private final List<Job> jobs=new ArrayList<>();
 
     //getter and setter

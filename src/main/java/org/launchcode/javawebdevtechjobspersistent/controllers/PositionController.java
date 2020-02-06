@@ -42,7 +42,7 @@ public class PositionController {
             return "positions/add";
         }
         positionRepository.save(newPosition);
-        return "redirect:../";
+        return "redirect:../positions/allPositions";
     }
 
     @GetMapping("view/{positionId}")
@@ -51,9 +51,9 @@ public class PositionController {
         if(optPosition.isPresent()){
             Position position=(Position) optPosition.get();
             model.addAttribute("position",position);
-            return "redirect:../";
+            return "positions/view";
         }
-        return "positions/view";
+        return "redirect:../";
     }
 
     @GetMapping("delete/{positionId}")
@@ -74,7 +74,7 @@ public class PositionController {
                 positionRepository.deleteById(id);
            }
        }
-        return "redirect:../";
+        return "redirect:../positions/allPositions";
     }
 
     @GetMapping("update/{positionId}")
@@ -96,7 +96,7 @@ public class PositionController {
             Position position = (Position) positionToUpdate.get();
             position.setName(name);
             positionRepository.save(position);
-            return "redirect:../";
+            return "redirect:../positions/allPositions";
         }
         return "redirect:../";
     }

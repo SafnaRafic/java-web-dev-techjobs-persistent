@@ -39,7 +39,7 @@ public class LocationController {
             return "locations/add";
         }
         locationRepository.save(newLocation);
-        return "locations/view";
+        return "redirect:../locations/allLocations";
     }
 
     @GetMapping("view/{locationId}")
@@ -71,7 +71,7 @@ public class LocationController {
                 locationRepository.deleteById(id);
             }
         }
-        return "redirect:../";
+        return "redirect:../locations/allLocations";
     }
 
     @GetMapping("update/{locationId}")
@@ -94,7 +94,7 @@ public class LocationController {
             Location location=(Location) locationToUpdate.get();
             location.setName(name);
             locationRepository.save(location);
-            return "redirect:../";
+            return "redirect:../locations/allLocations";
         }
 
         return "redirect:../";
